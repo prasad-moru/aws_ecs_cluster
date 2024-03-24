@@ -19,10 +19,30 @@ module "ecs_cluster" {
   min_size            = 1
   max_size            = 3
   desired_capacity    = 2
+  alb_target_group_arn = "arn:aws:elasticloadbalancing:region:account-id:targetgroup/target-group-name/..."
+  container_name = "your-container-name"
+  desired_count = 2
+  container_memory = 512
+  container_cpu        = 256
+  container_image      = "your-container-image-url"
+  task_family = "your-task-family-name"
+  container_port       = 8080
+  service_name         = "your-service-name"
   private_subnet_ids  = module.aws_vpc.private_subnet_ids
-  ecs_security_group_id = module.aws_vpc.ecs_security_group_id # Assume you have this output from your VPC module
-
+  ecs_security_group_id = module.aws_vpc.ecs_security_group_id
+  port_mappings = [
+    {
+      container_port = 80
+      host_port      = 80
+    },
+    {
+      container_port = 8080
+      host_port      = 8080
+    }
+    # Add more port mappings as needed
+  ]
 }
+
 
 module "aws_alb" {
   source = "./aws-alb-module"

@@ -40,3 +40,43 @@ variable "ecs_security_group_id" {
 }
 
 
+variable "task_family" {
+  description = "Name of the ECS task definition family"
+}
+
+variable "container_name" {
+  description = "Name of the container"
+}
+
+variable "container_image" {
+  description = "URL of the Docker image to use for the container"
+}
+
+variable "container_cpu" {
+  description = "cpu resource for container"
+}
+
+variable "container_memory" {
+  description = "memory resource for container"
+}
+
+variable "port_mappings" {
+  description = "add port like 8080:8080"
+}
+
+
+variable "service_name" {
+  description = "provide env vars"
+}
+
+variable "desired_count" {
+  description = "provide env vars"
+}
+
+variable "alb_target_group_arn" {
+  description = "provide env vars"
+}
+
+variable "container_port" {
+  description = "provide env vars"
+}

@@ -105,3 +105,30 @@ resource "aws_autoscaling_group" "ecs_instances_group" {
   }
 }
 
+
+resource "aws_ecs_task_definition" "ecs_task_definition" {
+  family                   = var.task_family
+  container_definitions    = jsonencode([
+    {
+      name          = var.container_name
+      image         = var.container_image
+      cpu           = var.container_cpu
+      memory        = var.container_memory
+      portMappings  = var.port_mappings
+    }
+  ])
+}
+
+resource "aws_ecs_service" "ecs_service" {
+  name            = var.service_name
+  cluster         = aws_ecs_cluster.cluster.arn
+  task_definition = aws_ecs_task_definition.ecs_task_definition.arn
+  desired_count   = var.desired_count
+
+  # Register ECS service tasks with ALB target group
+  load_balancer {
+    target_group_arn = var.alb_target_group_arn
+    container_name   = var.container_name
+    container_port   = var.container_port
+  }
+}
