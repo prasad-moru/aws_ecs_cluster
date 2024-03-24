@@ -15,12 +15,3 @@ output "ecr_repository_url" {
   description = "The URL of the ECR repository created."
   value       = module.ecr_repository.repository_url
 }
-
-
-output "service_name" {
-  value = aws_ecs_service.app_service.name
-}
-
-output "task_definition_arn" {
-  value = aws_ecs_task_definition.app_task.arn
-}

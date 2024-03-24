@@ -21,16 +21,7 @@ module "ecs_cluster" {
   desired_capacity    = 2
   private_subnet_ids  = module.aws_vpc.private_subnet_ids
   ecs_security_group_id = module.aws_vpc.ecs_security_group_id # Assume you have this output from your VPC module
-  execution_role_arn = "arn:aws:iam::377116394631:role/ecsTaskExecutionRole"
-  task_role_arn      = "arn:aws:iam::377116394631:role/ecsTaskRole"
-  container_image    = "377116394631.dkr.ecr.us-east-1.amazonaws.com/my-app:latest"
-  ecs_cluster_id     = aws_ecs_cluster.my_cluster.id
-  desired_count      = 2
-  target_group_arn   = aws_lb_target_group.my_tg.arn
-  subnets            = ["subnet-123", "subnet-456"]
-  security_groups    = [aws_security_group.my_sg.id]
-  container_name     = "myapp"
-  container_port     = 80
+
 }
 
 module "aws_alb" {
